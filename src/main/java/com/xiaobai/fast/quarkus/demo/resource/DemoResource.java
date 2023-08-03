@@ -7,6 +7,7 @@ import com.xiaobai.fast.quarkus.core.util.JsonUtils;
 import com.xiaobai.fast.quarkus.demo.domain.Demo;
 import com.xiaobai.fast.quarkus.demo.domain.Person;
 import com.xiaobai.fast.quarkus.demo.domain.SysUser;
+import com.xiaobai.fast.quarkus.demo.interceptor.LogEvent;
 import com.xiaobai.fast.quarkus.demo.rest.DemoRestClient;
 import com.xiaobai.fast.quarkus.demo.rest.VoiceData;
 import io.agroal.api.AgroalDataSource;
@@ -27,6 +28,8 @@ import io.vertx.redis.client.RedisConnection;
 import io.vertx.redis.client.impl.RedisClient;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.enterprise.inject.spi.CDIProvider;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -60,10 +63,14 @@ public class DemoResource {
     @Inject
     @RestClient
     DemoRestClient demoRestClient;
+
+
     @GET
     @Produces(value = MediaType.APPLICATION_JSON)
+    @LogEvent
     public R<String> get(){
-        return R.success("Hello DemoResource GET");
+        return R.success(
+                "Hello DemoResource GET");
     }
 
     @POST
