@@ -14,8 +14,8 @@ import java.util.List;
  * @date 2023/7/21
  * @since 1.0
  */
-@Entity
-@Table(name = "person")
+//@Entity
+//@Table(name = "person")
 public class Person extends PanacheEntityBase {
 
     @Id

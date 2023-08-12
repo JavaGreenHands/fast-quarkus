@@ -56,9 +56,9 @@ public class DemoResource {
     @GET
     @Produces(value = MediaType.APPLICATION_JSON)
     @LogEvent
-    public R<String> get(){
+    public R<String> get(String a,String b){
         return R.success(
-                "Hello DemoResource GET");
+                "欢迎访问Fast-Quarkus应用，请访问API文档地址用于开发");
     }
 
     @POST
@@ -122,38 +122,11 @@ public class DemoResource {
 
     @Inject
     EntityManager em;
-    @GET
-    @Path("/hibernate")
-    @PermitAll
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional(rollbackOn = Exception.class)
-    public R<List<SysUser>> saveAndGet(){
-        SysUser sysUser = new SysUser();
-        sysUser.setGender(1);
-        sysUser.setNickName("ZS"+new Random().nextInt(100000));
-        em.persist(sysUser);
-        TypedQuery<SysUser> query = em.createQuery(" from SysUser", SysUser.class);
-        List<SysUser> resultList = query.getResultList();
-        return R.success(resultList);
-    }
 
-    @GET
-    @Path("/person")
-    @PermitAll
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional(rollbackOn = Exception.class)
-    public R<List<Person>> saveAndGetPerson() throws ParseException {
-        Person person = new Person();
-        person.setAge(new Random().nextInt(100));
-        person.setName("ZS"+new Random().nextInt(1000));
-        person.setBirth(new SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01"));
-        person.persist();
-        SysUser sysUser = new SysUser();
-		sysUser.setGender(1);
-        sysUser.setNickName("ZS_"+person.getId());
-        em.persist(sysUser);
-        return R.success(Person.listAll());
-    }
+
+
+
+
 
     @GET
     @Path("/role")

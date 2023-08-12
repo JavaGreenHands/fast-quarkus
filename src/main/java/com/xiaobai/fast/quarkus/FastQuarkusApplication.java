@@ -14,6 +14,5 @@ import jakarta.enterprise.inject.spi.CDI;
 public class FastQuarkusApplication {
     public static void main(String[] args) {
         Quarkus.run(args);
-        System.out.println("xxxxxx");
     }
 }
