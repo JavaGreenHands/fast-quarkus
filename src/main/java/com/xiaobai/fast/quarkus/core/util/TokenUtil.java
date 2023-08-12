@@ -18,8 +18,9 @@ public class TokenUtil {
         String token =
                 Jwt.issuer("fast-quarkus")
                         .upn("fast-quarkus")
-                        .groups(new HashSet<>(Arrays.asList("User", "Admin")))
+                        .groups(new HashSet<>(Arrays.asList("User", "Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin","Admin")))
                         .claim("userInfo", "{'userName':'aaa',password}")
+                        .expiresAt(System.currentTimeMillis()+ 60 * 60 * 8 * 1000)
                         .sign();
         System.out.println(token);
     }

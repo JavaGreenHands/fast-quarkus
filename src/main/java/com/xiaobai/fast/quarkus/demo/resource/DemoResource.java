@@ -6,7 +6,6 @@ import com.xiaobai.fast.quarkus.core.response.R;
 import com.xiaobai.fast.quarkus.core.util.JsonUtils;
 import com.xiaobai.fast.quarkus.demo.domain.Demo;
 import com.xiaobai.fast.quarkus.demo.domain.Person;
-import com.xiaobai.fast.quarkus.demo.domain.SysUser;
 import com.xiaobai.fast.quarkus.demo.interceptor.LogEvent;
 import com.xiaobai.fast.quarkus.demo.rest.DemoRestClient;
 import com.xiaobai.fast.quarkus.demo.rest.VoiceData;
@@ -15,35 +14,24 @@ import io.quarkus.cache.CacheResult;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.redis.datasource.RedisDataSource;
 import io.quarkus.redis.datasource.hash.HashCommands;
-import io.quarkus.redis.datasource.set.SetCommands;
 import io.quarkus.redis.datasource.value.ValueCommands;
-import io.vertx.codegen.annotations.Nullable;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Future;
-import io.vertx.core.Handler;
+import io.quarkus.security.PermissionsAllowed;
 import io.vertx.mutiny.redis.client.Command;
 import io.vertx.mutiny.redis.client.Response;
-import io.vertx.redis.client.RedisAPI;
-import io.vertx.redis.client.RedisConnection;
-import io.vertx.redis.client.impl.RedisClient;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.enterprise.inject.spi.CDI;
-import jakarta.enterprise.inject.spi.CDIProvider;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.SecurityContext;
 import org.eclipse.microprofile.jwt.JsonWebToken;
-import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import javax.naming.Name;
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -108,7 +96,7 @@ public class DemoResource {
     AgroalDataSource dataSource;
     @GET
     @Path("jdbc")
-    @PermitAll
+    @RolesAllowed({"Admin","User"})
     @Produces(MediaType.APPLICATION_JSON)
     public R jdbcQuery() throws SQLException {
         Connection connection = dataSource.getConnection();
@@ -170,7 +158,7 @@ public class DemoResource {
     @GET
     @Path("/role")
     @Produces(MediaType.TEXT_PLAIN)
-    @RolesAllowed({ "User", "Admin" })
+    @PermissionsAllowed(value = "access")
     public String helloJwtRole(@Context SecurityContext ctx){
         return getResponseString(ctx) + ", birthdate: " + jwt.getClaim("userInfo").toString();
     }
@@ -183,7 +171,6 @@ public class DemoResource {
     public List<PanacheEntityBase> cacheResult(){
         List<PanacheEntityBase> panacheEntityBases = Person.listAll();
         return panacheEntityBases;
-
     }
 
     @Inject
@@ -239,6 +226,7 @@ public class DemoResource {
 
     @Inject
     JsonWebToken jwt;
+
     private String getResponseString(SecurityContext ctx) {
         String name;
         if (ctx.getUserPrincipal() == null) {

@@ -1,6 +1,7 @@
 package com.xiaobai.fast.quarkus.demo.rest;
 
 import com.xiaobai.fast.quarkus.core.response.R;
+import jakarta.enterprise.context.Dependent;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -18,6 +19,7 @@ import java.util.List;
 @Path("/numeral")
 @RegisterRestClient
 @RegisterClientHeaders(RequestUUIDHeaderFactory.class)
+@Dependent
 public interface DemoRestClient {
 
     @POST

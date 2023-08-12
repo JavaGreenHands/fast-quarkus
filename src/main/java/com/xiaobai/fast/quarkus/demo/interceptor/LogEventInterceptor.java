@@ -1,11 +1,14 @@
 package com.xiaobai.fast.quarkus.demo.interceptor;
 
+import jakarta.annotation.Priority;
 import jakarta.enterprise.event.Event;
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
 
 import java.lang.reflect.Method;
+
+import static jakarta.interceptor.Interceptor.Priority.LIBRARY_BEFORE;
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>
@@ -14,6 +17,7 @@ import java.lang.reflect.Method;
  */
 @LogEvent
 @Interceptor
+@Priority(LIBRARY_BEFORE)
 public class LogEventInterceptor {
 
     @AroundInvoke
