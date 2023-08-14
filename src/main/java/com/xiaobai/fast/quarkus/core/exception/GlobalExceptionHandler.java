@@ -5,6 +5,7 @@ import com.xiaobai.fast.quarkus.core.response.R;
 import com.xiaobai.fast.quarkus.core.util.JsonUtils;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
@@ -54,6 +55,12 @@ public class GlobalExceptionHandler implements ExceptionMapper<Throwable> {
                     .status(Response.Status.OK)
                     .header("content-type", MediaType.APPLICATION_JSON)
                     .entity(JsonUtils.object2Json(error))
+                    .build();
+        }else if(throwable instanceof ForbiddenException){
+         return    Response
+                    .status(Response.Status.UNAUTHORIZED)
+                    .header("content-type", MediaType.APPLICATION_JSON)
+                    .entity(JsonUtils.object2Json(throwable))
                     .build();
         }
         else {

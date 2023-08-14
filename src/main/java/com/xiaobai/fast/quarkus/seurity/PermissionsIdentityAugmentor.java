@@ -29,9 +29,9 @@ public class PermissionsIdentityAugmentor implements SecurityIdentityAugmentor {
      */
     @Override
     public Uni<SecurityIdentity> augment(SecurityIdentity identity, AuthenticationRequestContext context) {
-//        if (isNotAdmin(identity)) {
-//            return Uni.createFrom().item(identity);
-//        }
+        if (isNotAdmin(identity)) {
+            return Uni.createFrom().item(identity);
+        }
         return Uni.createFrom().item(build(identity));
     }
     private boolean isNotAdmin(SecurityIdentity identity) {
