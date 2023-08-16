@@ -1,17 +1,17 @@
 package com.xiaobai.fast.quarkus.system.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
 import com.xiaobai.fast.quarkus.core.base.BaseEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
-
-import java.util.Set;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>
- * @date 2023/8/12
  * @since 1.0
  */
 @Entity
@@ -20,41 +20,57 @@ import java.util.Set;
 public class SysMenu extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(groups = {Update.class})
-    @Column(name = "menu_id",columnDefinition = "BIGINT NOT NULL COMMENT '系统菜单Id'")
+    @NotNull(groups = {ValidationGroups.Update.class})
+    @Column(name = "menu_id")
     @SchemaProperty(name = "系统菜单Id")
+    @Null(groups = ValidationGroups.Create.class)
     private Long menuId;
-    @Column(name = "parent_id",columnDefinition = "BIGINT NOT NULL DEFAULT 0 COMMENT '上级菜单Id' ")
+    @Column(name = "parent_id")
     @SchemaProperty(name = "上级菜单Id")
-    private Long parent_id;
-    @Column(name = "menu_name",columnDefinition = "VARCHAR(100) NOT NULL  COMMENT '菜单标题' ")
+    @NotNull(groups = ValidationGroups.Create.class,message = "上级菜单ID不能为空")
+    private Long parentId;
+    @Column(name = "menu_name")
     @SchemaProperty(name = "菜单标题")
+    @NotEmpty(groups = ValidationGroups.Create.class,message = "菜单标题不能为空")
+    @Length(groups = ValidationGroups.Create.class,min = 1,max = 255,message = "菜单标题长度应该在1-255个字符")
     private String menuName;
 
-    @Column(name = "order_num" ,columnDefinition = "INT DEFAULT 999 NOT NULL COMMENT '排序'")
+    @Column(name = "order_num")
     @SchemaProperty(name = "排序")
-    private Integer sortBy ;
-    @Column(name = "url", columnDefinition = "VARCHAR(255) DEFAULT '#' COMMENT '请求地址'")
+    @NotNull(groups = ValidationGroups.Create.class,message = "排序值不能为空")
+    private Integer sortBy;
+
+    @Column(name = "status")
+    @SchemaProperty(name = "0-正常 1-禁用")
+    private Integer status;
+
+    @Column(name = "url")
     @SchemaProperty(name = "请求地址")
+    @NotEmpty(groups = ValidationGroups.Create.class,message = "请求地址不能为空")
     private String url;
 
-    @Column(name = "target",columnDefinition = "VARCHAR(50) NOT NULL COMMENT '打开方式（menuItem页签 menuBlank新窗口）'")
+    @Column(name = "target")
     @SchemaProperty(name = "打开方式（menuItem页签 menuBlank新窗口）")
+    @NotEmpty(groups = ValidationGroups.Create.class,message = "打开方式不能为空")
     private String target;
-    @Column(name = "menu_type",columnDefinition = "INT  NOT NULL  COMMENT '菜单类型（1目录 2菜单 3按钮）'")
+    @Column(name = "menu_type")
     @SchemaProperty(name = "菜单类型（1目录 2菜单 3按钮）")
+    @NotNull(groups = ValidationGroups.Create.class,message = "菜单类型不能为空")
     private Integer menuType;
-    @Column(name = "visible",columnDefinition = "INT  DEFAULT 0 COMMENT '是否隐藏 0-显示 1-隐藏'")
+    @Column(name = "visible")
     @SchemaProperty(name = "是否隐藏 0-显示 1-隐藏")
+    @NotNull(groups = ValidationGroups.Create.class,message = "是否隐藏不能为空")
     private Integer visible;
-    @Column(name = "is_refresh",columnDefinition = "INT DEFAULT 1 COMMENT '是否刷新0-刷新 1-不刷新'" )
+    @Column(name = "is_refresh")
     @SchemaProperty(name = "是否刷新0-刷新 1-不刷新")
+    @NotNull(groups = ValidationGroups.Create.class,message = "是否刷新不能为空")
     private Integer isRefresh;
-    @Column(name = "permission_string",columnDefinition = "VARCHAR(50) DEFAULT '' COMMENT '权限标识字符串'")
+    @Column(name = "permission_string")
     @SchemaProperty(name = "权限标识字符串")
     private String permissionString;
-    @Column(name = "icon",columnDefinition = "VARCHAR(255) DEFAULT '' COMMENT '菜单图标'" )
+    @Column(name = "icon")
     @SchemaProperty(name = "菜单图标")
+    @NotEmpty(groups = ValidationGroups.Create.class,message = "菜单图标 不能为空")
     private String icon;
 
     public Long getMenuId() {
@@ -65,12 +81,12 @@ public class SysMenu extends BaseEntity {
         this.menuId = menuId;
     }
 
-    public Long getParent_id() {
-        return parent_id;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParent_id(Long parent_id) {
-        this.parent_id = parent_id;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public String getMenuName() {
@@ -87,6 +103,14 @@ public class SysMenu extends BaseEntity {
 
     public void setSortBy(Integer sortBy) {
         this.sortBy = sortBy;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getUrl() {
@@ -149,7 +173,7 @@ public class SysMenu extends BaseEntity {
     public String toString() {
         return "SysMenu{" +
                 "menuId=" + menuId +
-                ", parent_id=" + parent_id +
+                ", parent_id=" + parentId +
                 ", menuName='" + menuName + '\'' +
                 ", sortBy=" + sortBy +
                 ", url='" + url + '\'' +

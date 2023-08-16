@@ -25,5 +25,14 @@ public class JsonUtils {
        }
        return value;
    }
+    public static<T> T parse(String json,Class<T> clazz) {
+
+        try {
+            Object o = mapper.readValue(json, clazz);
+            return clazz.cast(o);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

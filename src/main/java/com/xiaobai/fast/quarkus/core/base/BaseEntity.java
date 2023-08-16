@@ -2,10 +2,9 @@ package com.xiaobai.fast.quarkus.core.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.Column;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -21,37 +20,32 @@ import java.util.Date;
 @MappedSuperclass
 @Schema(name = "数据库基类")
 @EntityListeners(AuditEntityListener.class)
-public class BaseEntity extends PanacheEntityBase implements Serializable {
+public class BaseEntity  implements Serializable {
 
-    @Column(name = "create_name",columnDefinition = "VARCHAR(100) DEFAULT '' COMMENT '创建用户名称'")
-    @Schema(name = "创建用户名称-不需要填写")
-    private String createName;
+    @Column(name = "create_name")
+    @SchemaProperty(name = "创建用户名称-不需要填写",hidden = true)
+    protected String createName;
 
-    @Column(name = "update_name",columnDefinition = "VARCHAR(100) DEFAULT '' COMMENT '更新用户名称'")
-    @Schema(name = "更新用户名称-不需要填写" )
-    private String updateName;
+    @Column(name = "update_name")
+    @SchemaProperty(name = "更新用户名称-不需要填写" ,hidden = true)
+    protected String updateName;
 
+    @Column(name = "create_time")
+    @SchemaProperty(name = "创建时间-不需要填写",hidden = true)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    @Column(name = "create_time", columnDefinition = "DATETIME NOT NULL COMMENT '创建时间'",updatable = false)
-    @Schema(name = "创建时间-不需要填写")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
+    protected Date createTime;
 
+    @Column(name = "update_time")
+    @SchemaProperty(name = "更新时间-不需要填写",hidden = true)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    @Column(name = "update_time",columnDefinition = "DATETIME NOT NULL COMMENT '更新时间'")
-    @Schema(name = "更新时间-不需要填写")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
+    protected Date updateTime;
 
-    @Column(name = "is_del",columnDefinition ="INT NOT NULL DEFAULT 0 COMMENT '逻辑删除字段 0-未删除 -1删除' " )
-    @Schema(name = "逻辑删除字段 0-未删除 -1删除 -不需要填写")
-    private Integer isDel;
-
-    /* 创建对象校验分组 */
-    public @interface Create {}
-
-    /* 更新对象校验分组 */
-    public @interface Update {}
+    @SchemaProperty(name = "逻辑删除字段 0-未删除 -1删除 -不需要填写",hidden = true)
+    protected Integer isDel;
 
     public String getCreateName() {
         return createName;
@@ -82,10 +76,6 @@ public class BaseEntity extends PanacheEntityBase implements Serializable {
     }
 
     public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
     }
 

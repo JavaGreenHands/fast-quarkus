@@ -17,17 +17,17 @@ public class BusinessConfig extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "business_config_id",columnDefinition = " bigint NOT NULL COMMENT '业务配置Id'")
+    @Column(name = "business_config_id")
     @SchemaProperty(name = "业务配置Id")
     private Long businessConfigId;
 
-    @Column(name = "config_name",columnDefinition = " varchar(50) NOT NULL COMMENT '配置名称'")
+    @Column(name = "config_name")
     @SchemaProperty(name = "配置名称")
     private String configName;
-    @Column(name = "config_key",columnDefinition = " varchar(100) NOT NULL COMMENT '配置Key'")
+    @Column(name = "config_key")
     @SchemaProperty(name = "配置Key")
     private String configKey;
-    @Column(name = "config_value",columnDefinition = " varchar(500) NOT NULL COMMENT '配置Value'")
+    @Column(name = "config_value")
     @SchemaProperty(name = "配置Value")
     private String configValue;
 

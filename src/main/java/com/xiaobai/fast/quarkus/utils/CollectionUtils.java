@@ -1,7 +1,9 @@
 package com.xiaobai.fast.quarkus.utils;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>
@@ -30,4 +32,6 @@ public class CollectionUtils {
 
         return map == null || map.isEmpty();
     }
+
+
 }

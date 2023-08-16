@@ -17,7 +17,7 @@ public class AuditLog extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "audit_log_id",columnDefinition = " bigint NOT NULL COMMENT '审计日志Id'")
+    @Column(name = "audit_log_id")
     @SchemaProperty(name = "审计日志Id")
     private Long auditLogId;
 }

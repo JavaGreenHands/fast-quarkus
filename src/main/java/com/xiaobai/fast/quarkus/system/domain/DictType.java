@@ -17,7 +17,7 @@ public class DictType extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "dict_type_id",columnDefinition = " bigint NOT NULL COMMENT '字典类型Id'")
+    @Column(name = "dict_type_id")
     @SchemaProperty(name = "字典类型Id")
     private Long dictTypeId;
 }

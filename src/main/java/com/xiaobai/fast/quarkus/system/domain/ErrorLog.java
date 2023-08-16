@@ -17,7 +17,7 @@ public class ErrorLog extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "error_log_id",columnDefinition = " bigint NOT NULL COMMENT '错误日志Id'")
+    @Column(name = "error_log_id")
     @SchemaProperty(name = "错误日志Id")
     private Long errorLogId;
 }

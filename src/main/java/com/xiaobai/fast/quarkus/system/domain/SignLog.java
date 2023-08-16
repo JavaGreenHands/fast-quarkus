@@ -17,7 +17,7 @@ public class SignLog extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sign_log_id",columnDefinition = " bigint NOT NULL COMMENT '业务配置Id'")
+    @Column(name = "sign_log_id")
     @SchemaProperty(name = "登录日志Id")
     private Long signLogId;
 }

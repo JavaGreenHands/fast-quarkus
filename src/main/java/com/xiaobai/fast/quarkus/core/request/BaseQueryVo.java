@@ -9,7 +9,7 @@ public class BaseQueryVo {
     /**
      * 页码
      */
-    private Integer pageNum = 1;
+    private Integer pageNum = 0;
     /**
      * 分页数量
      */

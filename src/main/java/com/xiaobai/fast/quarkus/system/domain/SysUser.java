@@ -2,6 +2,7 @@ package com.xiaobai.fast.quarkus.system.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xiaobai.fast.quarkus.core.base.BaseEntity;
+import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -9,6 +10,7 @@ import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
 
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>
@@ -20,32 +22,45 @@ import java.util.Date;
 public class SysUser extends BaseEntity {
 
     @Id
-    @NotNull(groups = {Update.class})
+    @NotNull(groups = {ValidationGroups.Update.class})
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", columnDefinition = "BIGINT NOT NULL COMMENT '系统用户Id'")
+    @Column(name = "user_id")
     @SchemaProperty(name = "系统用户Id")
     private Long userId;
 
-    @Column(name = "username",columnDefinition = "VARCHAR(100) NOT NULL COMMENT '用户名称'")
+    @Column(name = "username")
     @SchemaProperty(name = "用户名称")
     private String username;
-    @Column(name = "nick_name",columnDefinition = "VARCHAR(100) NOT NULL COMMENT '用户昵称'")
+    @Column(name = "nick_name")
     @SchemaProperty(name = "用户昵称")
     private String nickName;
-    @Column(name = "phone_number",columnDefinition = "VARCHAR(20) NOT NULL COMMENT '手机号'")
+    @Column(name = "phone_number")
     @SchemaProperty(name = "手机号")
     private String phoneNumber;
-    @Column(name = "avatar",columnDefinition = "VARCHAR(200) NOT NULL COMMENT '用户头像'")
+    @Column(name = "avatar")
     @SchemaProperty(name = "用户头像")
     private String avatar;
-    @Column(name = "user_pwd",columnDefinition = "VARCHAR(100) NOT NULL COMMENT '用户密码'")
+    @Column(name = "user_pwd")
     @SchemaProperty(name = "用户密码")
     private String userPwd;
 
-    @Column(name = "last_modify_password_date",columnDefinition = "DATETIME NOT NULL COMMENT '最后一次修改密码时间'")
+    @Column(name = "last_modify_password_date")
     @SchemaProperty(name = "最后一次修改密码时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifyPasswordDate;
+
+    @ManyToMany
+    @JoinColumn(name = "user_role")
+    private Set<SysRole> sysRoleSet;
+
+    public Set<SysRole> getSysRoleSet() {
+        return sysRoleSet;
+    }
+
+    public void setSysRoleSet(Set<SysRole> sysRoleSet) {
+        this.sysRoleSet = sysRoleSet;
+    }
 
     public Long getUserId() {
         return userId;

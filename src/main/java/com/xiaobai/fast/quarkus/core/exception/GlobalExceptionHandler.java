@@ -3,6 +3,7 @@ package com.xiaobai.fast.quarkus.core.exception;
 import com.xiaobai.fast.quarkus.core.ienum.ServiceCodeEnum;
 import com.xiaobai.fast.quarkus.core.response.R;
 import com.xiaobai.fast.quarkus.core.util.JsonUtils;
+import io.vertx.core.Handler;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.ForbiddenException;
@@ -11,6 +12,8 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler implements ExceptionMapper<Throwable> {
     @Override
     public Response toResponse(Throwable throwable) {
+        // 业务异常
         if (throwable instanceof ServiceException) {
             ServiceException exception = ServiceException.class.cast(throwable);
 
@@ -34,7 +38,9 @@ public class GlobalExceptionHandler implements ExceptionMapper<Throwable> {
                     .header("content-type", MediaType.APPLICATION_JSON)
                     .entity(data)
                     .build();
-        }else if(throwable instanceof BadRequestException){
+        }
+        // 请求方式错误
+        else if(throwable instanceof BadRequestException){
             R<Object> error = R.error(ServiceCodeEnum.BAD_REQUEST.getCode(),ServiceCodeEnum.BAD_REQUEST.getMessage());
             // 处理自定义异常
             return Response
@@ -42,27 +48,16 @@ public class GlobalExceptionHandler implements ExceptionMapper<Throwable> {
                     .header("content-type", MediaType.APPLICATION_JSON)
                     .entity(JsonUtils.object2Json(error))
                     .build();
-        }else if(throwable instanceof ConstraintViolationException){
-            // validate 校验错误
-            String messages = ConstraintViolationException.class.cast(throwable)
-                    .getConstraintViolations()
-                    .stream()
-                    .map(cv -> cv.getMessage())
-                    .collect(Collectors.joining(", "));
-            R<Object> error = R.error(ServiceCodeEnum.PARAMETER_ERROR.getCode(),messages);
-            // 处理自定义异常
-            return Response
-                    .status(Response.Status.OK)
-                    .header("content-type", MediaType.APPLICATION_JSON)
-                    .entity(JsonUtils.object2Json(error))
-                    .build();
-        }else if(throwable instanceof ForbiddenException){
+        }
+        // 拒绝访问异常
+        else if(throwable instanceof ForbiddenException){
          return    Response
-                    .status(Response.Status.UNAUTHORIZED)
+                    .status(Response.Status.FORBIDDEN)
                     .header("content-type", MediaType.APPLICATION_JSON)
-                    .entity(JsonUtils.object2Json(throwable))
+                    .entity(JsonUtils.object2Json(R.errorMsg("用户未登录")))
                     .build();
         }
+        // 未定义异常
         else {
             R<Object> error = R.error(throwable.getMessage());
             // 处理其他异常

@@ -16,16 +16,20 @@ import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
 public class SysRole extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id",columnDefinition = "BIGINT NOT NULL COMMENT '系统角色Id'")
+    @Column(name = "role_id")
     @SchemaProperty(name = "系统角色Id")
     private Long roleId;
 
-    @Column(name = "role_name",columnDefinition = "VARCHAR(100) NOT NULL COMMENT '角色名称'")
+    @Column(name = "role_name")
     @SchemaProperty(name = "角色名称")
     private String roleName;
 
-    @Column(name = "role_status",columnDefinition = "INT NOT NULL DEFAULT 1 COMMENT '角色状态 1- 启用 2-停用' ")
-    @SchemaProperty(name = "角色状态 1- 启用 2-停用")
+    @Column(name = "role_key")
+    @SchemaProperty(name = "角色名称key")
+    private String roleNameKey;
+
+    @Column(name = "role_status")
+    @SchemaProperty(name = "角色状态 0- 启用 1-停用")
     private Integer roleStatus;
 
     public Long getRoleId() {
@@ -34,6 +38,14 @@ public class SysRole extends BaseEntity {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public String getRoleNameKey() {
+        return roleNameKey;
+    }
+
+    public void setRoleNameKey(String roleNameKey) {
+        this.roleNameKey = roleNameKey;
     }
 
     public String getRoleName() {
@@ -57,6 +69,7 @@ public class SysRole extends BaseEntity {
         return "SysRole{" +
                 "roleId=" + roleId +
                 ", roleName='" + roleName + '\'' +
+                ", roleNameKey='" + roleNameKey + '\'' +
                 ", roleStatus=" + roleStatus +
                 '}';
     }

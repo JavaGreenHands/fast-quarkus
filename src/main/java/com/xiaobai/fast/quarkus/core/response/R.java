@@ -47,6 +47,10 @@ public class R<T> {
     public static <T> R<T> error(String message){
         return new R<>(ServiceCodeEnum.ERROR.getCode(),message);
     }
+    public static <T> R<T> errorMsg(String message){
+        return new R<>(message);
+    }
+
 
     public Integer getCode() {
         return code;
