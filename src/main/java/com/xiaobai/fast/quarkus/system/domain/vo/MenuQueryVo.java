@@ -15,7 +15,6 @@ import org.hibernate.validator.constraints.Length;
  */
 @Schema(name = "菜单查询VO")
 public class MenuQueryVo extends BaseQueryVo {
-    @Column(name = "menu_name")
     @SchemaProperty(name = "菜单标题")
     private String menuName;
     @SchemaProperty(name = "0-正常 1-禁用")
@@ -24,6 +23,12 @@ public class MenuQueryVo extends BaseQueryVo {
     @SchemaProperty(name = "上级菜单Id")
     private Long parentId;
 
+    public MenuQueryVo(Integer pageNum, Integer pageSize, String menuName, Integer status, Long parentId) {
+        super(pageNum, pageSize);
+        this.menuName = menuName;
+        this.status = status;
+        this.parentId = parentId;
+    }
 
     public String getMenuName() {
         return menuName;

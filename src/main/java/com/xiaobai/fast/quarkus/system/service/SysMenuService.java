@@ -13,14 +13,33 @@ public interface SysMenuService {
 
     /**
      * 添加一个菜单
-     * @param sysMenu
+     * @param sysMenu 新增菜单参数
      */
     void addMenu(SysMenu sysMenu);
 
     /**
      * 查询菜单列表
-     * @param queryVo
-     * @return
+     * @param queryVo 查询参数
+     * @return 菜单列白哦
      */
     List<SysMenu> getMenuList(MenuQueryVo queryVo);
+
+    /**
+     * 查询菜单详情
+     * @param menuId 菜单Id
+     * @return 菜单详情
+     */
+    SysMenu getById(Long menuId);
+
+    /**
+     * 更新菜单信息
+     * @param sysMenu 更新菜单的信息
+     */
+    void updateById(SysMenu sysMenu);
+
+    /**
+     * 删除菜单
+     * @param ids 菜单Id 使用,逗号分割
+     */
+    void deleteByIds( List<Long> ids);
 }

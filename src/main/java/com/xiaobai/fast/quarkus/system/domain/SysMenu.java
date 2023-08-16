@@ -28,16 +28,19 @@ public class SysMenu extends BaseEntity {
     @Column(name = "parent_id")
     @SchemaProperty(name = "上级菜单Id")
     @NotNull(groups = ValidationGroups.Create.class,message = "上级菜单ID不能为空")
+    @NotNull(groups = ValidationGroups.Update.class,message = "上级菜单ID不能为空")
     private Long parentId;
     @Column(name = "menu_name")
     @SchemaProperty(name = "菜单标题")
     @NotEmpty(groups = ValidationGroups.Create.class,message = "菜单标题不能为空")
+    @NotEmpty(groups = ValidationGroups.Update.class,message = "菜单标题不能为空")
     @Length(groups = ValidationGroups.Create.class,min = 1,max = 255,message = "菜单标题长度应该在1-255个字符")
     private String menuName;
 
     @Column(name = "order_num")
     @SchemaProperty(name = "排序")
     @NotNull(groups = ValidationGroups.Create.class,message = "排序值不能为空")
+    @NotNull(groups = ValidationGroups.Update.class,message = "排序值不能为空")
     private Integer sortBy;
 
     @Column(name = "status")
@@ -47,23 +50,28 @@ public class SysMenu extends BaseEntity {
     @Column(name = "url")
     @SchemaProperty(name = "请求地址")
     @NotEmpty(groups = ValidationGroups.Create.class,message = "请求地址不能为空")
+    @NotEmpty(groups = ValidationGroups.Update.class,message = "请求地址不能为空")
     private String url;
 
     @Column(name = "target")
     @SchemaProperty(name = "打开方式（menuItem页签 menuBlank新窗口）")
     @NotEmpty(groups = ValidationGroups.Create.class,message = "打开方式不能为空")
+    @NotEmpty(groups = ValidationGroups.Update.class,message = "打开方式不能为空")
     private String target;
     @Column(name = "menu_type")
     @SchemaProperty(name = "菜单类型（1目录 2菜单 3按钮）")
     @NotNull(groups = ValidationGroups.Create.class,message = "菜单类型不能为空")
+    @NotNull(groups = ValidationGroups.Update.class,message = "菜单类型不能为空")
     private Integer menuType;
     @Column(name = "visible")
     @SchemaProperty(name = "是否隐藏 0-显示 1-隐藏")
     @NotNull(groups = ValidationGroups.Create.class,message = "是否隐藏不能为空")
+    @NotNull(groups = ValidationGroups.Update.class,message = "是否隐藏不能为空")
     private Integer visible;
     @Column(name = "is_refresh")
     @SchemaProperty(name = "是否刷新0-刷新 1-不刷新")
     @NotNull(groups = ValidationGroups.Create.class,message = "是否刷新不能为空")
+    @NotNull(groups = ValidationGroups.Update.class,message = "是否刷新不能为空")
     private Integer isRefresh;
     @Column(name = "permission_string")
     @SchemaProperty(name = "权限标识字符串")
@@ -71,6 +79,7 @@ public class SysMenu extends BaseEntity {
     @Column(name = "icon")
     @SchemaProperty(name = "菜单图标")
     @NotEmpty(groups = ValidationGroups.Create.class,message = "菜单图标 不能为空")
+    @NotEmpty(groups = ValidationGroups.Update.class,message = "菜单图标 不能为空")
     private String icon;
 
     public Long getMenuId() {

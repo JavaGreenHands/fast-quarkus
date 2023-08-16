@@ -45,6 +45,7 @@ public class BaseEntity  implements Serializable {
     protected Date updateTime;
 
     @SchemaProperty(name = "逻辑删除字段 0-未删除 -1删除 -不需要填写",hidden = true)
+    @Column(name = "is_del")
     protected Integer isDel;
 
     public String getCreateName() {

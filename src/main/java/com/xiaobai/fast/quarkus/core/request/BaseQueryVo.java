@@ -9,11 +9,16 @@ public class BaseQueryVo {
     /**
      * 页码
      */
-    private Integer pageNum = 0;
+    private Integer pageNum = 1;
     /**
      * 分页数量
      */
     private Integer pageSize = 10;
+
+    public BaseQueryVo(Integer pageNum, Integer pageSize) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
 
     public Integer getPageNum() {
         return pageNum;

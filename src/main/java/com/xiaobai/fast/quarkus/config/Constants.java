@@ -31,4 +31,14 @@ public class Constants {
     public static String CUSTOM_PERMISSION_ACTIONS = "CUSTOM_PERMISSION_ACTIONS";
     public static String ClaimName = "userInfo";
     public static String Authentication = "Authentication";
+
+    public static String likeFormat(String fieldName) {
+        return "%"+fieldName+"%";
+    }
+    public static String likeLeftFormat(String fieldName) {
+        return "%"+fieldName;
+    }
+    public static String likeRightFormat(String fieldName) {
+        return "%"+fieldName+"%";
+    }
 }
