@@ -7,7 +7,7 @@ package com.xiaobai.fast.quarkus.core.ienum;
  */
 public enum ServiceCodeEnum {
    SUCCESS(0,"SUCCESS"),
-   ERROR(500,"ERROR"),
+   ERROR(600,"ERROR"),
 
     PARAMETER_ERROR(601,"参数错误,请检查参数"),
     UPLOAD_ERROR(602,"文件上传错误！"),

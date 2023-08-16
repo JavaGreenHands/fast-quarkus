@@ -1,6 +1,7 @@
 package com.xiaobai.fast.quarkus.system.rest;
 
 import com.oracle.svm.core.annotate.Delete;
+import com.xiaobai.fast.quarkus.core.response.R;
 import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
 import com.xiaobai.fast.quarkus.system.domain.vo.MenuQueryVo;
 import com.xiaobai.fast.quarkus.system.service.SysMenuService;
@@ -78,14 +79,14 @@ public class SysMenuResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addMenu(@Valid @ConvertGroup(to = ValidationGroups.Create.class) SysMenu sysMenu) {
         sysMenuService.addMenu(sysMenu);
-        return Response.ok().entity("SUCCESS").build();
+        return Response.ok().entity(R.successBody()).build();
     }
     @POST
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response editMenu(@Valid @ConvertGroup(to = ValidationGroups.Update.class) SysMenu sysMenu) {
         sysMenuService.updateById(sysMenu);
-        return Response.ok().entity("SUCCESS").build();
+        return Response.ok().entity(R.successBody()).build();
     }
     @DELETE
     @Path("/{ids}")
@@ -94,7 +95,7 @@ public class SysMenuResource {
 
         sysMenuService.deleteByIds(deleteIds);
 
-        return Response.ok().entity("SUCCESS").build();
+        return Response.ok().entity(R.successBody()).build();
     }
 
     @GET
