@@ -23,28 +23,28 @@ import java.util.Date;
 public class BaseEntity  implements Serializable {
 
     @Column(name = "create_name")
-    @SchemaProperty(name = "创建用户名称-不需要填写",hidden = true)
+    @SchemaProperty(name = "createName",description = "创建用户名称-不需要填写",hidden = true)
     protected String createName;
 
     @Column(name = "update_name")
-    @SchemaProperty(name = "更新用户名称-不需要填写" ,hidden = true)
+    @SchemaProperty(name = "updateName" ,description = "更新用户名称-不需要填写",hidden = true)
     protected String updateName;
 
     @Column(name = "create_time")
-    @SchemaProperty(name = "创建时间-不需要填写",hidden = true)
+    @SchemaProperty(name = "createTime",description = "创建时间-不需要填写",hidden = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     protected Date createTime;
 
     @Column(name = "update_time")
-    @SchemaProperty(name = "更新时间-不需要填写",hidden = true)
+    @SchemaProperty(name = "updateTime",description = "更新时间-不需要填写",hidden = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     protected Date updateTime;
 
-    @SchemaProperty(name = "逻辑删除字段 0-未删除 -1删除 -不需要填写",hidden = true)
+    @SchemaProperty(name = "isDel",description = "逻辑删除字段 0-未删除 -1删除 -不需要填写",hidden = true)
     @Column(name = "is_del")
     protected Integer isDel;
 

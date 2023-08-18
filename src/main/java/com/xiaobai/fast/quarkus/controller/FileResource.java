@@ -1,21 +1,5 @@
 package com.xiaobai.fast.quarkus.controller;
 
-import com.xiaobai.fast.quarkus.config.ApplicationConfig;
-import com.xiaobai.fast.quarkus.core.ienum.ServiceCodeEnum;
-import com.xiaobai.fast.quarkus.core.response.R;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
-
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>

@@ -1,12 +1,9 @@
 package com.xiaobai.fast.quarkus.core.exception;
 
-import com.xiaobai.fast.quarkus.core.ienum.ServiceCodeEnum;
+import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
 import com.xiaobai.fast.quarkus.core.response.R;
-import com.xiaobai.fast.quarkus.core.util.JsonUtils;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.ws.rs.BadRequestException;
-import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
@@ -30,12 +27,12 @@ public class ValidatorExceptionHandler implements ExceptionMapper<ResteasyViolat
                 .stream()
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.joining(", "));
-        R error = R.error(ServiceCodeEnum.PARAMETER_ERROR.getCode(), messages);
+        R error =new R(ServiceCodeEnum.PARAMETER_ERROR.getCode(), messages);
         // 处理自定义异常
         return Response
                 .status(Response.Status.INTERNAL_SERVER_ERROR)
                 .header("content-type", MediaType.APPLICATION_JSON)
-                .entity(JsonUtils.object2Json(error))
+                .entity(error)
                 .build();
 
     }

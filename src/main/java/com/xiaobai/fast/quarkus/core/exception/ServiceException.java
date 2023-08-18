@@ -1,6 +1,6 @@
 package com.xiaobai.fast.quarkus.core.exception;
 
-import com.xiaobai.fast.quarkus.core.ienum.ServiceCodeEnum;
+import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>

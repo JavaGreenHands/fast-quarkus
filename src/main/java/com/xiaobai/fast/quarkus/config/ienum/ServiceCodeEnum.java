@@ -1,4 +1,4 @@
-package com.xiaobai.fast.quarkus.core.ienum;
+package com.xiaobai.fast.quarkus.config.ienum;
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>

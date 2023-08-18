@@ -1,13 +1,14 @@
 package com.xiaobai.fast.quarkus.core.response;
 
-import com.xiaobai.fast.quarkus.core.ienum.ServiceCodeEnum;
+
+import java.io.Serializable;
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>
  * @date 2023/7/18
  * @since 1.0
  */
-public class R {
+public class R implements Serializable {
     private Integer code;
     private String msg;
 
@@ -17,25 +18,9 @@ public class R {
         this.msg = message;
     }
 
-
-    public R(Integer code) {
-        this.code = code;
+    public R() {
     }
 
-    public R(String message) {
-        this.msg = message;
-    }
-
-
-    public static R error(Integer code,String message){
-        return new R(code,message);
-    }
-    public static R error(String message){
-        return new R(ServiceCodeEnum.ERROR.getCode(),message);
-    }
-    public static R successBody(){
-        return new R();
-    }
 
     public Integer getCode() {
         return code;
@@ -54,6 +39,5 @@ public class R {
     }
 
 
-    public R() {
-    }
+
 }

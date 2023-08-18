@@ -1,9 +1,8 @@
 package com.xiaobai.fast.quarkus.system.service.impl;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.xiaobai.fast.quarkus.config.Constants;
 import com.xiaobai.fast.quarkus.core.exception.ServiceException;
-import com.xiaobai.fast.quarkus.core.ienum.ServiceCodeEnum;
+import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
 import com.xiaobai.fast.quarkus.system.domain.vo.MenuQueryVo;
 import com.xiaobai.fast.quarkus.system.repository.SysMenuRepository;
 import com.xiaobai.fast.quarkus.system.service.SysMenuService;

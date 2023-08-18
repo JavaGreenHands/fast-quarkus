@@ -119,7 +119,6 @@ public class SecurityFilter implements ContainerRequestFilter {
 
             if (rolesAllowed == null && !denyAll && !permitAll &&  parse.getClaim(Constants.ClaimName) == null) {
                 throw new UnauthorizedException();
-
             }
         } catch (ParseException e) {
             log.error("parse exception", e);

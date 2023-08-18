@@ -10,6 +10,7 @@ public class HomeResource {
 
 
     @GET
+    @Path(("/welcome"))
     public String index(){
         return "欢迎来到Fast-Quarkus!";
     }

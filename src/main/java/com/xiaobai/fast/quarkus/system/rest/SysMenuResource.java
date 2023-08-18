@@ -1,14 +1,10 @@
 package com.xiaobai.fast.quarkus.system.rest;
-
-import com.oracle.svm.core.annotate.Delete;
 import com.xiaobai.fast.quarkus.core.response.R;
 import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
+import com.xiaobai.fast.quarkus.system.domain.SysMenu;
 import com.xiaobai.fast.quarkus.system.domain.vo.MenuQueryVo;
 import com.xiaobai.fast.quarkus.system.service.SysMenuService;
-import com.xiaobai.fast.quarkus.system.domain.SysMenu;
-import io.quarkus.runtime.util.StringUtil;
 import jakarta.inject.Inject;
-import jakarta.persistence.Column;
 import jakarta.validation.Valid;
 import jakarta.validation.groups.ConvertGroup;
 import jakarta.ws.rs.*;
@@ -16,12 +12,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
-import org.eclipse.microprofile.openapi.annotations.links.Link;
-import org.eclipse.microprofile.openapi.annotations.links.LinkParameter;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
-import org.eclipse.microprofile.openapi.annotations.media.ExampleObject;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameters;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -30,7 +22,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>
@@ -60,42 +51,38 @@ public class SysMenuResource {
                     schema = @Schema(implementation = SysMenu.class,type = SchemaType.ARRAY))
     )
     @Produces(value = MediaType.APPLICATION_JSON)
-    public Response getMenuList(
+    public List<SysMenu> getMenuList(
             @QueryParam("menuName") String menuName,
             @QueryParam("status") Integer status,
             @QueryParam("parentId") Long parentId,
             @QueryParam("pageNum") Integer pageNum,
             @QueryParam("pageSize") Integer pageSize) {
 
-        List<SysMenu> sysMenuList = sysMenuService.getMenuList(new MenuQueryVo(pageNum, pageSize, menuName, status, parentId));
-        return Response
-                .ok()
-                .entity(sysMenuList)
-                .build();
+       return sysMenuService.getMenuList(new MenuQueryVo(pageNum, pageSize, menuName, status, parentId));
+
     }
 
     @PUT
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addMenu(@Valid @ConvertGroup(to = ValidationGroups.Create.class) SysMenu sysMenu) {
+    @Operation(summary = "添加菜单",description = "添加菜单")
+    public void addMenu(@Valid @ConvertGroup(to = ValidationGroups.Create.class) SysMenu sysMenu) {
         sysMenuService.addMenu(sysMenu);
-        return Response.ok().entity(R.successBody()).build();
     }
     @POST
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editMenu(@Valid @ConvertGroup(to = ValidationGroups.Update.class) SysMenu sysMenu) {
+    public void editMenu(@Valid @ConvertGroup(to = ValidationGroups.Update.class) SysMenu sysMenu) {
         sysMenuService.updateById(sysMenu);
-        return Response.ok().entity(R.successBody()).build();
     }
     @DELETE
     @Path("/{ids}")
-    public Response deleteMenuByIds(@PathParam("ids") String ids) {
+    @Operation(summary = "根据id删除菜单",description = "ids是根据逗号,分割的菜单id")
+    public void deleteMenuByIds(@PathParam("ids") String ids) {
         List<Long> deleteIds = Arrays.stream(ids.split(",")).map(Long::valueOf).toList();
 
         sysMenuService.deleteByIds(deleteIds);
 
-        return Response.ok().entity(R.successBody()).build();
     }
 
     @GET
@@ -106,9 +93,9 @@ public class SysMenuResource {
     })
     @APIResponseSchema(value = SysMenu.class, responseDescription = "菜单详情", responseCode = "200")
     @Produces(value = MediaType.APPLICATION_JSON)
-    public Response getById(@PathParam("id") Long menuId) {
+    public SysMenu getById(@PathParam("id") Long menuId) {
         SysMenu sysMenu = sysMenuService.getById(menuId);
-        return Response.ok().entity(sysMenu).build();
+        return sysMenu;
     }
 
 }

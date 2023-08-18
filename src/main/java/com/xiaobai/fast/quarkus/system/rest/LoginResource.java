@@ -31,8 +31,8 @@ public class LoginResource {
     @Consumes(value = MediaType.APPLICATION_JSON)
     @Produces(value = MediaType.APPLICATION_JSON)
     @Operation(summary = "登录接口")
-    public Response login(@Valid LoginVo loginVo){
+    public LoginVo login(@Valid LoginVo loginVo){
         String token = loginService.login(loginVo);
-        return Response.ok().entity(new LoginVo(token)).build();
+        return new LoginVo(token);
     }
 }
