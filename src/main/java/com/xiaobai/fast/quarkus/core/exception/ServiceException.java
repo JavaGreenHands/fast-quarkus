@@ -1,6 +1,8 @@
 package com.xiaobai.fast.quarkus.core.exception;
 
 import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>
@@ -8,6 +10,7 @@ import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
  * @since 1.0
  */
 public class ServiceException extends RuntimeException{
+    private static final Logger log = LoggerFactory.getLogger(ServiceException.class);
 
     /**
      * Constructs a new runtime exception with {@code null} as its
@@ -17,6 +20,7 @@ public class ServiceException extends RuntimeException{
     public ServiceException() {
     }
     public ServiceException(RuntimeException runtimeException) {
+        log.error("ServiceException：",runtimeException);
         if(runtimeException instanceof ServiceException serviceException){
             this.code  = serviceException.getCode();
             this.message  = serviceException.getMessage();

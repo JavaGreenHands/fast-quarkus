@@ -6,6 +6,7 @@ import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
 import com.xiaobai.fast.quarkus.system.domain.SysUser;
 import com.xiaobai.fast.quarkus.system.domain.vo.SysUserQueryVo;
 import com.xiaobai.fast.quarkus.system.service.SysUserService;
+import io.quarkus.runtime.util.StringUtil;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -23,6 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,8 +68,14 @@ public class SysUserResource {
             @Valid @NotNull(message = "分页参数不能为空") @QueryParam("pageNum") Integer pageNum,
             @Valid @NotNull(message = "分页参数不能为空") @QueryParam("pageSize") Integer pageSize
     ) {
+        Date startDate =null;
+        Date endDate =null;
 
-        return sysUserService.getUserList(new SysUserQueryVo(pageNum, pageSize,dateType, DateUtils.parseDateTime(startTime),DateUtils.parseDateTime(endTime),userName,userStatus));
+        if(!StringUtil.isNullOrEmpty(startTime) && !StringUtil.isNullOrEmpty(endTime)){
+            startDate =  DateUtils.parseDateTime(startTime);
+            endDate =  DateUtils.parseDateTime(endTime);
+        }
+        return sysUserService.getUserList(new SysUserQueryVo(pageNum, pageSize,dateType, startDate,endDate,userName,userStatus));
 
     }
 

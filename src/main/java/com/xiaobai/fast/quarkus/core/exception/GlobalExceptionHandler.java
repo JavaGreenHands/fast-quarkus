@@ -3,12 +3,15 @@ package com.xiaobai.fast.quarkus.core.exception;
 import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
 import com.xiaobai.fast.quarkus.core.response.R;
 import com.xiaobai.fast.quarkus.core.util.JsonUtils;
+import io.quarkus.runtime.util.ExceptionUtil;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>
@@ -17,10 +20,11 @@ import jakarta.ws.rs.ext.Provider;
  */
 @Provider
 public class GlobalExceptionHandler implements ExceptionMapper<Throwable> {
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     @Override
     public Response toResponse(Throwable throwable) {
         // 业务异常
-
+        log.error("GlobalExceptionHandler：",throwable);
         // 请求方式错误
          if(throwable instanceof BadRequestException){
             R error = new R(ServiceCodeEnum.BAD_REQUEST.getCode(),ServiceCodeEnum.BAD_REQUEST.getMessage());
@@ -41,7 +45,7 @@ public class GlobalExceptionHandler implements ExceptionMapper<Throwable> {
         }
         // 未定义异常
         else {
-            R error = new R(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),throwable.getMessage());
+            R error = new R(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),ExceptionUtil.generateStackTrace(throwable));
             // 处理其他异常
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .header("content-type", MediaType.APPLICATION_JSON)

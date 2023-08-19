@@ -6,6 +6,7 @@ import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
 import com.xiaobai.fast.quarkus.system.domain.SysRole;
 import com.xiaobai.fast.quarkus.system.domain.vo.RoleQueryVo;
 import com.xiaobai.fast.quarkus.system.service.SysRoleService;
+import io.quarkus.runtime.util.StringUtil;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -23,6 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,8 +66,16 @@ public class SysRoleResource {
             @Valid @NotNull(message = "分页参数不能为空") @QueryParam("pageNum") Integer pageNum,
             @Valid @NotNull(message = "分页参数不能为空") @QueryParam("pageSize") Integer pageSize
     ) {
+        Date startDate =null;
+        Date endDate =null;
 
-        return sysRoleService.getRoleList(new RoleQueryVo(pageNum, pageSize,dateType, DateUtils.parseDateTime(startTime),DateUtils.parseDateTime(endTime),roleName));
+        if(!StringUtil.isNullOrEmpty(startTime) && !StringUtil.isNullOrEmpty(endTime)){
+            startDate =  DateUtils.parseDateTime(startTime);
+            endDate =  DateUtils.parseDateTime(endTime);
+
+        }
+
+        return sysRoleService.getRoleList(new RoleQueryVo(pageNum, pageSize,dateType, startDate,endDate,roleName));
 
     }
 

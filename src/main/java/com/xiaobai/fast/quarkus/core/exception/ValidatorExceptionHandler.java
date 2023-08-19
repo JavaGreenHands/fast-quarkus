@@ -9,6 +9,8 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 import org.jboss.resteasy.api.validation.ResteasyViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.stream.Collectors;
 
@@ -18,9 +20,11 @@ import java.util.stream.Collectors;
  */
 @Provider
 public class ValidatorExceptionHandler implements ExceptionMapper<ResteasyViolationException> {
+    private static final Logger log = LoggerFactory.getLogger(ServiceExceptionHandler.class);
+
     @Override
     public Response toResponse(ResteasyViolationException exception) {
-
+        log.error("ValidatorExceptionHandler",exception);
         // hibernate validate 校验错误
         String messages = ConstraintViolationException.class.cast(exception)
                 .getConstraintViolations()
