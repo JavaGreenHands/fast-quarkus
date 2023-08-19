@@ -1,2 +1,3 @@
 com.xiaobai.fast.quarkus.core.exception.ValidatorExceptionHandler
 com.xiaobai.fast.quarkus.core.exception.ServiceExceptionHandler
+com.xiaobai.fast.quarkus.core.exception.GlobalExceptionHandler

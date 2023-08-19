@@ -15,7 +15,7 @@ import jakarta.ws.rs.ext.Provider;
  * @date 2023/7/18
  * @since 1.0
  */
-//@Provider
+@Provider
 public class GlobalExceptionHandler implements ExceptionMapper<Throwable> {
     @Override
     public Response toResponse(Throwable throwable) {
