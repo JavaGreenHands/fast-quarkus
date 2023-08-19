@@ -1,64 +1,60 @@
-//package com.xiaobai.fast.quarkus.demo.resource;
-//
-//import com.xiaobai.fast.quarkus.core.exception.ServiceException;
-//import com.xiaobai.fast.quarkus.core.ienum.ServiceCodeEnum;
-//import com.xiaobai.fast.quarkus.core.util.JsonUtils;
-//import com.xiaobai.fast.quarkus.demo.domain.Demo;
-//import com.xiaobai.fast.quarkus.demo.domain.Person;
-//import com.xiaobai.fast.quarkus.demo.interceptor.LogEvent;
-//import com.xiaobai.fast.quarkus.demo.rest.DemoRestClient;
-//import com.xiaobai.fast.quarkus.demo.rest.VoiceData;
-//import io.agroal.api.AgroalDataSource;
-//import io.quarkus.cache.CacheResult;
-//import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-//import io.quarkus.redis.datasource.RedisDataSource;
-//import io.quarkus.redis.datasource.hash.HashCommands;
-//import io.quarkus.redis.datasource.value.ValueCommands;
-//import io.quarkus.security.PermissionsAllowed;
-//import io.vertx.mutiny.redis.client.Command;
-//import io.vertx.mutiny.redis.client.Response;
-//import jakarta.annotation.security.PermitAll;
-//import jakarta.annotation.security.RolesAllowed;
-//import jakarta.enterprise.context.Dependent;
-//import jakarta.inject.Inject;
-//import jakarta.persistence.EntityManager;
-//import jakarta.validation.Valid;
-//import jakarta.ws.rs.*;
-//import jakarta.ws.rs.core.Context;
-//import jakarta.ws.rs.core.MediaType;
-//import jakarta.ws.rs.core.SecurityContext;
-//import org.eclipse.microprofile.jwt.JsonWebToken;
-//import org.eclipse.microprofile.rest.client.inject.RestClient;
-//
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.util.*;
-//
-///**
-// * @author baijie <a href="mrwhite777@163.com"></a>
-// * @date 2023/7/18
-// * @since 1.0
-// */
-//@Path("/demo")
-//public class DemoResource {
-//
+package com.xiaobai.fast.quarkus.demo.resource;
+
+import com.xiaobai.fast.quarkus.core.exception.ServiceException;
+import com.xiaobai.fast.quarkus.core.interceptor.LogEvent;
+import com.xiaobai.fast.quarkus.core.response.R;
+import com.xiaobai.fast.quarkus.core.util.JsonUtils;
+import com.xiaobai.fast.quarkus.demo.domain.Demo;
+import com.xiaobai.fast.quarkus.demo.domain.Person;
+import com.xiaobai.fast.quarkus.demo.rest.VoiceData;
+import io.agroal.api.AgroalDataSource;
+import io.quarkus.cache.CacheResult;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.redis.datasource.RedisDataSource;
+import io.quarkus.redis.datasource.hash.HashCommands;
+import io.quarkus.redis.datasource.value.ValueCommands;
+import io.quarkus.security.PermissionsAllowed;
+import io.vertx.mutiny.redis.client.Command;
+import io.vertx.mutiny.redis.client.Response;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.validation.Valid;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.SecurityContext;
+import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+
+/**
+ * @author baijie <a href="mrwhite777@163.com"></a>
+ * @date 2023/7/18
+ * @since 1.0
+ */
+@Path("/demo")
+public class DemoResource {
+
 //    @Inject
 //    @RestClient
 //    @Dependent
 //    DemoRestClient demoRestClient;
-//
-//
-//    @GET
-//    @Produces(value = MediaType.APPLICATION_JSON)
-//    @LogEvent
-//    public Response get(String a, String b){
-//        return
-//                Response.ok()
-//                R.success(
-//                "欢迎访问Fast-Quarkus应用，请访问API文档地址用于开发");
-//    }
+
+
+    @GET
+    @Produces(value = MediaType.TEXT_HTML)
+    @LogEvent
+    public String get(String a, String b){
+               return  "欢迎访问Fast-Quarkus应用，请访问API文档地址用于开发";
+    }
 //
 //    @POST
 //    @Path("/add")
@@ -218,4 +214,4 @@
 //    private boolean hasJwt() {
 //        return jwt.getClaimNames() != null;
 //    }
-//}
+}

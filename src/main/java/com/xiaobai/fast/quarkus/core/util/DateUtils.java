@@ -1,5 +1,9 @@
 package com.xiaobai.fast.quarkus.core.util;
 
+import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
+import com.xiaobai.fast.quarkus.core.exception.ServiceException;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,8 +13,8 @@ import java.util.Date;
  */
 public class DateUtils {
 
-    public static final String YYYY_MM_DD = "yyyy:MM:dd";
-    public static final String YYYY_MM_DD_HH_MM_SS = "yyyy:MM:dd HH:mm:ss";
+    public static final String YYYY_MM_DD = "yyyy-MM-dd";
+    public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * 获取当前时间
@@ -59,4 +63,12 @@ public class DateUtils {
         return new SimpleDateFormat(pattern).format(date);
     }
 
+    public static Date parseDateTime(String startTime) {
+
+        try {
+            return new SimpleDateFormat(YYYY_MM_DD_HH_MM_SS).parse(startTime);
+        } catch (ParseException e) {
+            throw new ServiceException(ServiceCodeEnum.DATE_PARSE_ERROR,ServiceCodeEnum.DATE_PARSE_ERROR);
+        }
+    }
 }

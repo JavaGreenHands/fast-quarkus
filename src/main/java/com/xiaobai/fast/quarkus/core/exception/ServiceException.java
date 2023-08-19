@@ -8,6 +8,22 @@ import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
  * @since 1.0
  */
 public class ServiceException extends RuntimeException{
+
+    /**
+     * Constructs a new runtime exception with {@code null} as its
+     * detail message.  The cause is not initialized, and may subsequently be
+     * initialized by a call to {@link #initCause}.
+     */
+    public ServiceException() {
+    }
+    public ServiceException(RuntimeException runtimeException) {
+        if(runtimeException instanceof ServiceException serviceException){
+            this.code  = serviceException.getCode();
+            this.message  = serviceException.getMessage();
+        }
+    }
+
+
     private Integer code;
     private String message;
     public ServiceException(String message) {

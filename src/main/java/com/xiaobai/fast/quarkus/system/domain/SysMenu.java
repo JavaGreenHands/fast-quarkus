@@ -23,7 +23,7 @@ public class SysMenu extends BaseEntity {
     @NotNull(groups = {ValidationGroups.Update.class})
     @Column(name = "menu_id")
     @Schema(name = "menuId",description = "系统菜单Id")
-    @Null(groups = ValidationGroups.Create.class)
+    @Null(groups = ValidationGroups.Create.class,message = "menuId必须为null")
     private Long menuId;
     @Column(name = "parent_id")
     @SchemaProperty(name = "parentId",description = "上级菜单Id")

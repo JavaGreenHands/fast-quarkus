@@ -32,8 +32,7 @@ public class LoginService {
         SysRole sysRole = new SysRole();
         sysRole.setRoleId(1L);
         sysRole.setRoleName("超级管理员");
-        sysRole.setRoleNameKey("admin");
-        sysRole.setRoleStatus(0);
+        sysRole.setRoleKey("admin");
         sysUser.setSysRoleSet(Collections.singleton(sysRole));
         return  TokenUtil.createToken(sysUser);
     }

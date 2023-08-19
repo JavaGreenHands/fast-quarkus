@@ -44,6 +44,10 @@ public class SysUser extends BaseEntity {
     @SchemaProperty(name = "用户密码")
     private String userPwd;
 
+    @Column(name = "user_status")
+    @SchemaProperty(name = "用户状态 1-正常 2-禁止登录")
+    private Integer userStatus;
+
     @Column(name = "last_modify_password_date")
     @SchemaProperty(name = "最后一次修改密码时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -60,6 +64,14 @@ public class SysUser extends BaseEntity {
 
     public void setSysRoleSet(Set<SysRole> sysRoleSet) {
         this.sysRoleSet = sysRoleSet;
+    }
+
+    public Integer getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(Integer userStatus) {
+        this.userStatus = userStatus;
     }
 
     public Long getUserId() {

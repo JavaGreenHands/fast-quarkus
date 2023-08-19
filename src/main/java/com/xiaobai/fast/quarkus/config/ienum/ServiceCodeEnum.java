@@ -10,8 +10,10 @@ public enum ServiceCodeEnum {
    ERROR(600,"ERROR"),
 
     PARAMETER_ERROR(601,"参数错误,请检查参数"),
-    UPLOAD_ERROR(602,"文件上传错误！"),
+    DATE_PARSE_ERROR(601,"日期参数格式错误,请检查参数"),
+    UPLOAD_ERROR(601,"文件上传错误！"),
 
+    DATA_NOT_FOUND(601,"数据未找到"),
 
     /**
      * 框架层面错误

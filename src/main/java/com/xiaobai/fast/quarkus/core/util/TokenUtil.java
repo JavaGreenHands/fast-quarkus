@@ -57,7 +57,7 @@ public class TokenUtil {
         Set<String> roles = new HashSet<>(Collections.emptySet());
         Set<SysRole> sysRoleSet = sysUser.getSysRoleSet();
         if(!CollectionUtils.isEmpty(sysRoleSet)){
-            Set<String> collect = sysRoleSet.stream().map(SysRole::getRoleNameKey).collect(Collectors.toSet());
+            Set<String> collect = sysRoleSet.stream().map(SysRole::getRoleKey).collect(Collectors.toSet());
             roles.addAll(collect);
         }
         Map<String,Object> userMap = new HashMap<>();

@@ -1,8 +1,10 @@
 package com.xiaobai.fast.quarkus.core.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Null;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,29 +25,34 @@ import java.util.Date;
 public class BaseEntity  implements Serializable {
 
     @Column(name = "create_name")
-    @SchemaProperty(name = "createName",description = "创建用户名称-不需要填写",hidden = true)
+    @Schema(name = "createName",description = "创建用户名称-不需要填写",hidden = true)
+    @Null(groups = ValidationGroups.Create.class,message = "createName 必须为null")
     protected String createName;
 
     @Column(name = "update_name")
-    @SchemaProperty(name = "updateName" ,description = "更新用户名称-不需要填写",hidden = true)
+    @Schema(name = "updateName" ,description = "更新用户名称-不需要填写",hidden = true)
+    @Null(groups = ValidationGroups.Create.class,message = "updateName 必须为null")
     protected String updateName;
 
     @Column(name = "create_time")
-    @SchemaProperty(name = "createTime",description = "创建时间-不需要填写",hidden = true)
+    @Schema(name = "createTime",description = "创建时间-不需要填写",hidden = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
+    @Null(groups = ValidationGroups.Create.class,message = "createTime 必须为null")
     protected Date createTime;
 
     @Column(name = "update_time")
-    @SchemaProperty(name = "updateTime",description = "更新时间-不需要填写",hidden = true)
+    @Schema(name = "updateTime",description = "更新时间-不需要填写",hidden = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
+    @Null(groups = ValidationGroups.Create.class,message = "updateTime 必须为null")
     protected Date updateTime;
 
-    @SchemaProperty(name = "isDel",description = "逻辑删除字段 0-未删除 -1删除 -不需要填写",hidden = true)
+    @Schema(name = "isDel",description = "逻辑删除字段 0-未删除 -1删除 -不需要填写",hidden = true)
     @Column(name = "is_del")
+    @Null(groups = ValidationGroups.Create.class,message = "isDel 必须为null")
     protected Integer isDel;
 
     public String getCreateName() {

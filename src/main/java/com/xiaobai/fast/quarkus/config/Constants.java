@@ -32,6 +32,7 @@ public class Constants {
     public static String ClaimName = "userInfo";
     public static String Authentication = "Authentication";
 
+
     public static String likeFormat(String fieldName) {
         return "%"+fieldName+"%";
     }

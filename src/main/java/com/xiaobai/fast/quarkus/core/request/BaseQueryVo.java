@@ -1,5 +1,7 @@
 package com.xiaobai.fast.quarkus.core.request;
 
+import java.util.Date;
+
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>
  * @date 2023/7/18
@@ -15,9 +17,59 @@ public class BaseQueryVo {
      */
     private Integer pageSize = 10;
 
+    /**
+     * 查询日期类型 1-创建时间 2-更新时间
+     */
+    private Integer dateType;
+
+    /**
+     * 创建时间
+     */
+    private Date startTime;
+
+    /**
+     * 更新时间
+     */
+    private Date endTime;
+
+    public BaseQueryVo(Integer pageNum, Integer pageSize, Integer dateType, Date startTime, Date endTime) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.dateType = dateType;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public Integer getDateType() {
+        return dateType;
+    }
+
+    public void setDateType(Integer dateType) {
+        this.dateType = dateType;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
     public BaseQueryVo(Integer pageNum, Integer pageSize) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
+    }
+
+    public BaseQueryVo() {
     }
 
     public Integer getPageNum() {

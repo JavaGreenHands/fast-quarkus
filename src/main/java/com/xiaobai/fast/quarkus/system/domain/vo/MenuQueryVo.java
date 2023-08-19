@@ -9,6 +9,8 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.Date;
+
 /**
  * @author baijie <a href="mrwhite777@163.com"></a>
  * @since 1.0
@@ -17,17 +19,23 @@ import org.hibernate.validator.constraints.Length;
 public class MenuQueryVo extends BaseQueryVo {
     @SchemaProperty(name = "菜单标题")
     private String menuName;
-    @SchemaProperty(name = "0-正常 1-禁用")
-    private Integer status;
 
     @SchemaProperty(name = "上级菜单Id")
     private Long parentId;
 
-    public MenuQueryVo(Integer pageNum, Integer pageSize, String menuName, Integer status, Long parentId) {
+    public MenuQueryVo(Integer pageNum, Integer pageSize, String menuName, Long parentId) {
         super(pageNum, pageSize);
         this.menuName = menuName;
-        this.status = status;
         this.parentId = parentId;
+    }
+
+    public MenuQueryVo(Integer pageNum, Integer pageSize,  String menuName, Long parentId,Integer dateType, Date createTime, Date endTime) {
+        super(pageNum, pageSize, dateType, createTime, endTime);
+        this.menuName = menuName;
+        this.parentId = parentId;
+    }
+
+    public MenuQueryVo() {
     }
 
     public String getMenuName() {
@@ -38,13 +46,6 @@ public class MenuQueryVo extends BaseQueryVo {
         this.menuName = menuName;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public Long getParentId() {
         return parentId;
