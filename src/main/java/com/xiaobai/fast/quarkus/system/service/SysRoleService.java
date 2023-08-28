@@ -2,6 +2,7 @@ package com.xiaobai.fast.quarkus.system.service;
 
 import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
 import com.xiaobai.fast.quarkus.core.exception.ServiceException;
+import com.xiaobai.fast.quarkus.core.util.ExceptionUtils;
 import com.xiaobai.fast.quarkus.system.domain.SysMenu;
 import com.xiaobai.fast.quarkus.system.domain.SysRole;
 import com.xiaobai.fast.quarkus.system.domain.vo.RoleQueryVo;
@@ -49,7 +50,7 @@ public class SysRoleService {
                 .collect(Collectors.toSet());
     }
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void addRole(SysRole sysRole) {
         PanacheQuery<SysRole> sysRolePanacheQuery = sysRoleRepository.find("FROM SysRole where isDel=0 AND (roleName =?1 or roleKey=?2)", sysRole.getRoleName(), sysRole.getRoleKey());
         List<SysRole> list = sysRolePanacheQuery.list();
@@ -64,7 +65,7 @@ public class SysRoleService {
      *
      * @param sysRole
      */
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void updateById(SysRole sysRole) {
         SysRole exits = sysRoleRepository.findById(sysRole.getRoleId());
         if (exits == null) {
@@ -89,7 +90,7 @@ public class SysRoleService {
 
     }
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void deleteByIds(List<Long> deleteIds) {
         // TODO 判断是否有用户在使用该角色，如果在使用则不能删除
         Map<String, Object> paramMap = new HashMap<>();
@@ -98,7 +99,7 @@ public class SysRoleService {
     }
 
     public SysRole getById(Long roleId) {
-        return sysRoleRepository.find("FROM SysRole where isDel=0 and role_id = :roleId", roleId).singleResult();
+        return sysRoleRepository.find("FROM SysRole where isDel=0 and roleId = ?1", roleId).singleResultOptional().orElseThrow(ExceptionUtils::getDataNotFoundException);
     }
 
     public List<SysRole> getRoleList(RoleQueryVo roleQueryVo) {

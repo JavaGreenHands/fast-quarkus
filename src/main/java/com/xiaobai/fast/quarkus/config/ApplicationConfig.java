@@ -13,7 +13,16 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class ApplicationConfig {
 
     @ConfigProperty(name = "upload.path")
-    private String uploadPath;
+    String uploadPath;
+
+    @ConfigProperty(name = "upload.type")
+    String uploadType;
+
+    @ConfigProperty(name = "server.url")
+    String serverUrl;
+
+    @ConfigProperty(name = "static.path")
+    String staticResourcePath;
 
     public String getUploadPath() {
         return uploadPath;
@@ -21,5 +30,29 @@ public class ApplicationConfig {
 
     public void setUploadPath(String uploadPath) {
         this.uploadPath = uploadPath;
+    }
+
+    public String getUploadType() {
+        return uploadType;
+    }
+
+    public void setUploadType(String uploadType) {
+        this.uploadType = uploadType;
+    }
+
+    public String getServerUrl() {
+        return serverUrl;
+    }
+
+    public void setServerUrl(String serverUrl) {
+        this.serverUrl = serverUrl;
+    }
+
+    public String getStaticResourcePath() {
+        return staticResourcePath;
+    }
+
+    public void setStaticResourcePath(String staticResourcePath) {
+        this.staticResourcePath = staticResourcePath;
     }
 }

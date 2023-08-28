@@ -13,7 +13,7 @@ import java.util.Set;
  * @since 1.0
  */
 @Entity
-@Table(name = "sys_role")
+@Table(name = "fq_sys_role")
 @Schema(name = "系统角色类")
 public class SysRole extends BaseEntity {
     @Id
@@ -36,7 +36,7 @@ public class SysRole extends BaseEntity {
 
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "sys_roles_menus",
+    @JoinTable(name = "fq_sys_roles_menus",
     joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")},
     inverseJoinColumns = {@JoinColumn(name = "menu_id",referencedColumnName = "menu_id")})
     @Schema(name = "menus",description = "角色包含的菜单",hidden = true)

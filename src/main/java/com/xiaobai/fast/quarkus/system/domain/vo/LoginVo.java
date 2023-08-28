@@ -1,6 +1,7 @@
 package com.xiaobai.fast.quarkus.system.domain.vo;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.ws.rs.QueryParam;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
 
@@ -11,14 +12,16 @@ import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
 @Schema(name = "登录实体")
 public class LoginVo {
 
-    @SchemaProperty(name = "用户名称")
+    @Schema(name = "username",description = "用户名称")
     @NotEmpty(message = "用户名称不能为空")
+    @QueryParam("username")
     private String username;
-    @SchemaProperty(name = "用户密码")
+    @Schema(name = "password",description = "用户密码")
     @NotEmpty(message = "用户密码不能为空")
+    @QueryParam("password")
     private String password;
 
-    @SchemaProperty(name = "toekn",hidden = true)
+    @Schema(name = "token",hidden = true)
     private String token;
 
     public String getToken() {

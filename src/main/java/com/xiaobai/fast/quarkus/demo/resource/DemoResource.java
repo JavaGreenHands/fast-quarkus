@@ -49,6 +49,7 @@ public class DemoResource {
 //    DemoRestClient demoRestClient;
 
 
+
     @GET
     @Produces(value = MediaType.TEXT_HTML)
     @LogEvent

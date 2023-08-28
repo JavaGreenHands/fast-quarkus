@@ -11,7 +11,7 @@ import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
  * @since 1.0
  */
 @Entity
-@Table(name = "sign_log")
+@Table(name = "fq_sign_log")
 @Schema(name = "登录日志表")
 public class SignLog extends BaseEntity {
 

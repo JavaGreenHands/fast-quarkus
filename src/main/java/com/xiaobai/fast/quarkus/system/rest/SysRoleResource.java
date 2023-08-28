@@ -1,6 +1,7 @@
 package com.xiaobai.fast.quarkus.system.rest;
 
 import com.xiaobai.fast.quarkus.core.interceptor.LogEvent;
+import com.xiaobai.fast.quarkus.core.response.R;
 import com.xiaobai.fast.quarkus.core.util.DateUtils;
 import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
 import com.xiaobai.fast.quarkus.system.domain.SysRole;
@@ -84,8 +85,9 @@ public class SysRoleResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "添加角色", description = "添加角色")
     @LogEvent("添加角色")
-    public void addRole(@Valid @ConvertGroup(to = ValidationGroups.Create.class) SysRole sysRole) {
+    public R addRole(@Valid @ConvertGroup(to = ValidationGroups.Create.class) SysRole sysRole) {
         sysRoleService.addRole(sysRole);
+        return R.ok();
     }
 
     @POST
@@ -93,17 +95,19 @@ public class SysRoleResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @LogEvent("修改角色")
     @Operation(summary = "修改角色", description = "修改角色")
-    public void editRole(@Valid @ConvertGroup(to = ValidationGroups.Update.class) SysRole sysRole) {
+    public R editRole(@Valid @ConvertGroup(to = ValidationGroups.Update.class) SysRole sysRole) {
         sysRoleService.updateById(sysRole);
+        return R.ok();
     }
 
     @DELETE
     @Path("/{ids}")
     @Operation(summary = "根据id删除角色", description = "ids是根据逗号,分割的菜单id")
     @LogEvent("根据id删除角色")
-    public void deleteRoleByIds(@PathParam("ids") String ids) {
+    public R deleteRoleByIds(@PathParam("ids") String ids) {
         List<Long> deleteIds = Arrays.stream(ids.split(",")).map(Long::valueOf).toList();
         sysRoleService.deleteByIds(deleteIds);
+        return R.ok();
 
     }
 

@@ -3,6 +3,7 @@ package com.xiaobai.fast.quarkus.system.service;
 import com.xiaobai.fast.quarkus.config.Constants;
 import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
 import com.xiaobai.fast.quarkus.core.exception.ServiceException;
+import com.xiaobai.fast.quarkus.core.util.ExceptionUtils;
 import com.xiaobai.fast.quarkus.system.domain.SysMenu;
 import com.xiaobai.fast.quarkus.system.domain.vo.MenuQueryVo;
 import com.xiaobai.fast.quarkus.system.repository.SysMenuRepository;
@@ -81,7 +82,7 @@ public class SysMenuService {
      * @return 菜单详情
      */
     public SysMenu getById(Long menuId) {
-        return sysMenuRepository.find("FROM SysMenu where isDel=0 AND menu_id=:menuId", menuId).firstResult();
+        return sysMenuRepository.find("FROM SysMenu where isDel=0 AND menuId=?1", menuId).singleResultOptional().orElseThrow(ExceptionUtils::getDataNotFoundException);
     }
 
     /**
@@ -89,7 +90,7 @@ public class SysMenuService {
      *
      * @param sysMenu 更新菜单的信息
      */
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void updateById(SysMenu sysMenu) {
         SysMenu exits = sysMenuRepository.findById(sysMenu.getMenuId());
         if (exits == null) {
@@ -120,7 +121,7 @@ public class SysMenuService {
      *
      * @param ids 菜单Id 使用,逗号分割
      */
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void deleteByIds(List<Long> ids) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("ids", ids);

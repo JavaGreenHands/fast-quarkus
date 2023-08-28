@@ -1,5 +1,7 @@
 package com.xiaobai.fast.quarkus.core.util;
 
+import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
+import com.xiaobai.fast.quarkus.core.exception.ServiceException;
 import io.quarkus.runtime.util.ExceptionUtil;
 import io.quarkus.runtime.util.StringUtil;
 
@@ -21,5 +23,14 @@ public class ExceptionUtils {
             return "NOT ERROR MSG";
         }
         return cause.length() > 2000 ? cause.substring(0,2000):cause;
+    }
+
+    /**
+     * 获取数据未找到异常
+     * @return
+     */
+    public static ServiceException getDataNotFoundException(){
+        return new ServiceException(ServiceCodeEnum.DATA_NOT_FOUND,ServiceCodeEnum.DATA_NOT_FOUND);
+
     }
 }

@@ -2,10 +2,12 @@ package com.xiaobai.fast.quarkus.system.service;
 
 import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
 import com.xiaobai.fast.quarkus.core.exception.ServiceException;
+import com.xiaobai.fast.quarkus.core.util.ExceptionUtils;
 import com.xiaobai.fast.quarkus.system.domain.SysUser;
 import com.xiaobai.fast.quarkus.system.domain.vo.SysUserQueryVo;
 import com.xiaobai.fast.quarkus.system.repository.SysUserRepository;
 import io.quarkus.panache.common.Sort;
+import io.quarkus.runtime.util.ExceptionUtil;
 import io.quarkus.runtime.util.StringUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -27,12 +29,12 @@ public class SysUserService {
      * 添加一个用户
      * @param sysUser 用户
      */
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void addUser(SysUser sysUser) {
         sysUserRepository.persist(sysUser);
     }
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void updateById(SysUser sysUser) {
         SysUser exits = sysUserRepository.findById(sysUser.getUserId());
         if(exits == null){
@@ -47,7 +49,7 @@ public class SysUserService {
 
     }
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void deleteByIds(List<Long> deleteIds) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("ids", deleteIds);
@@ -56,8 +58,9 @@ public class SysUserService {
     }
 
     public SysUser getById(Long userId) {
-        return sysUserRepository.find("isDel = 0 AND userId = :userId",userId).singleResult();
+        return sysUserRepository.find(" FROM SysUser where isDel = 0 AND userId = ?1",userId).singleResultOptional().orElseThrow(ExceptionUtils::getDataNotFoundException);
     }
+
 
     /**
      * 查询用户列表

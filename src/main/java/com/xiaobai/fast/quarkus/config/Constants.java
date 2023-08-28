@@ -22,6 +22,24 @@ public class Constants {
      */
     public static final String JWT_UPN = "fast-quarkus";
     /**
+     * 字符串常量
+     */
+    public static final String DOT = ".";
+    public static final String EMPTY = "";
+
+
+
+    /**
+     * 代码来自hutool.cn
+     * 字符常量：斜杠 {@code '/'}
+     */
+   public static final char SLASH = '/';
+    /**
+     * 代码来自hutool.cn
+     * 字符常量：反斜杠 {@code '\\'}
+     */
+    public static final char BACKSLASH = '\\';
+    /**
      * 自定义权限校验名称
      */
     public static String CUSTOM_PERMISSION_NAME = "CUSTOM_PERMISSION_NAME";
@@ -31,6 +49,17 @@ public class Constants {
     public static String CUSTOM_PERMISSION_ACTIONS = "CUSTOM_PERMISSION_ACTIONS";
     public static String ClaimName = "userInfo";
     public static String Authentication = "Authentication";
+
+    /**
+     * 本地缓存cacheKey
+     */
+    public static class CacheKey{
+
+        /**
+         * 字典数据缓存
+         */
+        public static final String DICT_DATA_CACHE_NAME = "DictDataCacheName";
+    }
 
 
     public static String likeFormat(String fieldName) {

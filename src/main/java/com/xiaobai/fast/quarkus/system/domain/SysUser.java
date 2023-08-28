@@ -17,7 +17,7 @@ import java.util.Set;
  * @since 1.0
  */
 @Entity
-@Table(name = "sys_user")
+@Table(name = "fq_sys_user")
 @Schema(name = "系统用户类")
 public class SysUser extends BaseEntity {
 
@@ -55,7 +55,9 @@ public class SysUser extends BaseEntity {
     private Date lastModifyPasswordDate;
 
     @ManyToMany
-    @JoinColumn(name = "user_role")
+    @JoinTable(name = "fq_sys_user_role",
+            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")})
     private Set<SysRole> sysRoleSet;
 
     public Set<SysRole> getSysRoleSet() {

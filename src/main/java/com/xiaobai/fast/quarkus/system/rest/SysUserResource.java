@@ -1,6 +1,7 @@
 package com.xiaobai.fast.quarkus.system.rest;
 
 import com.xiaobai.fast.quarkus.core.interceptor.LogEvent;
+import com.xiaobai.fast.quarkus.core.response.R;
 import com.xiaobai.fast.quarkus.core.util.DateUtils;
 import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
 import com.xiaobai.fast.quarkus.system.domain.SysUser;
@@ -84,8 +85,9 @@ public class SysUserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "添加用户", description = "添加用户")
     @LogEvent("添加用户")
-    public void adduser(@Valid @ConvertGroup(to = ValidationGroups.Create.class) SysUser SysUser) {
+    public R adduser(@Valid @ConvertGroup(to = ValidationGroups.Create.class) SysUser SysUser) {
         sysUserService.addUser(SysUser);
+        return R.ok();
     }
 
     @POST
@@ -93,18 +95,19 @@ public class SysUserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @LogEvent("修改用户")
     @Operation(summary = "修改用户", description = "修改用户")
-    public void editUser(@Valid @ConvertGroup(to = ValidationGroups.Update.class) SysUser SysUser) {
+    public R editUser(@Valid @ConvertGroup(to = ValidationGroups.Update.class) SysUser SysUser) {
         sysUserService.updateById(SysUser);
+        return R.ok();
     }
 
     @DELETE
     @Path("/{ids}")
     @Operation(summary = "根据id删除用户", description = "ids是根据逗号,分割的菜单id")
     @LogEvent("根据id删除用户")
-    public void deleteUserByIds(@PathParam("ids") String ids) {
+    public R deleteUserByIds(@PathParam("ids") String ids) {
         List<Long> deleteIds = Arrays.stream(ids.split(",")).map(Long::valueOf).toList();
         sysUserService.deleteByIds(deleteIds);
-
+        return R.ok();
     }
 
     @GET

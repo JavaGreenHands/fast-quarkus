@@ -11,7 +11,7 @@ import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
  * @since 1.0
  */
 @Entity
-@Table(name = "audit_log")
+@Table(name = "fq_audit_log")
 @Schema(name = "审计日志类")
 public class AuditLog extends BaseEntity {
 

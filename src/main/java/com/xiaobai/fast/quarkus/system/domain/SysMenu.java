@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Length;
  * @since 1.0
  */
 @Entity
-@Table(name = "sys_menu")
+@Table(name = "fq_sys_menu")
 @Schema(name = "SysMenu",description = "系统菜单类")
 public class SysMenu extends BaseEntity {
     @Id

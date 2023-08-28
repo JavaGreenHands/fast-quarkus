@@ -1,5 +1,8 @@
 package com.xiaobai.fast.quarkus.core.request;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.QueryParam;
+
 import java.util.Date;
 
 /**
@@ -11,26 +14,30 @@ public class BaseQueryVo {
     /**
      * 页码
      */
-    private Integer pageNum = 1;
+    @QueryParam("pageNum")
+    @NotNull(message = "分页参数不能为空")
+    protected Integer pageNum = 0;
     /**
      * 分页数量
      */
-    private Integer pageSize = 10;
+    @QueryParam("pageSize")
+    @NotNull(message = "分页参数不能为空")
+    protected Integer pageSize = 10;
 
     /**
      * 查询日期类型 1-创建时间 2-更新时间
      */
-    private Integer dateType;
+    protected Integer dateType;
 
     /**
      * 创建时间
      */
-    private Date startTime;
+    protected Date startTime;
 
     /**
      * 更新时间
      */
-    private Date endTime;
+    protected Date endTime;
 
     public BaseQueryVo(Integer pageNum, Integer pageSize, Integer dateType, Date startTime, Date endTime) {
         this.pageNum = pageNum;

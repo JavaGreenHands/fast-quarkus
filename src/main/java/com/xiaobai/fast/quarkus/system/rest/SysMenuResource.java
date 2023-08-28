@@ -1,8 +1,9 @@
 package com.xiaobai.fast.quarkus.system.rest;
 
+import com.xiaobai.fast.quarkus.core.interceptor.LogEvent;
+import com.xiaobai.fast.quarkus.core.response.R;
 import com.xiaobai.fast.quarkus.core.util.DateUtils;
 import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
-import com.xiaobai.fast.quarkus.core.interceptor.LogEvent;
 import com.xiaobai.fast.quarkus.system.domain.SysMenu;
 import com.xiaobai.fast.quarkus.system.domain.vo.MenuQueryVo;
 import com.xiaobai.fast.quarkus.system.service.SysMenuService;
@@ -84,26 +85,29 @@ public class SysMenuResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "添加菜单", description = "添加菜单")
     @LogEvent("添加菜单")
-    public void addMenu(@Valid @ConvertGroup(to = ValidationGroups.Create.class) SysMenu sysMenu) {
+    public R addMenu(@Valid @ConvertGroup(to = ValidationGroups.Create.class) SysMenu sysMenu) {
         sysMenuService.addMenu(sysMenu);
+        return R.ok();
     }
 
     @POST
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     @LogEvent("修改菜单")
-    public void editMenu(@Valid @ConvertGroup(to = ValidationGroups.Update.class) SysMenu sysMenu) {
+    public R editMenu(@Valid @ConvertGroup(to = ValidationGroups.Update.class) SysMenu sysMenu) {
         sysMenuService.updateById(sysMenu);
+        return R.ok();
     }
 
     @DELETE
     @Path("/{ids}")
     @Operation(summary = "根据id删除菜单", description = "ids是根据逗号,分割的菜单id")
     @LogEvent("根据id删除菜单")
-    public void deleteMenuByIds(@PathParam("ids") String ids) {
+    public R deleteMenuByIds(@PathParam("ids") String ids) {
         List<Long> deleteIds = Arrays.stream(ids.split(",")).map(Long::valueOf).toList();
 
         sysMenuService.deleteByIds(deleteIds);
+        return R.ok();
 
     }
 

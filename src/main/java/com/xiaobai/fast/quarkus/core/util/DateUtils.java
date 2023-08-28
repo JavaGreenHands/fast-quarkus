@@ -5,6 +5,8 @@ import com.xiaobai.fast.quarkus.core.exception.ServiceException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -68,6 +70,14 @@ public class DateUtils {
         try {
             return new SimpleDateFormat(YYYY_MM_DD_HH_MM_SS).parse(startTime);
         } catch (ParseException e) {
+            throw new ServiceException(ServiceCodeEnum.DATE_PARSE_ERROR,ServiceCodeEnum.DATE_PARSE_ERROR);
+        }
+    }
+    public static LocalDateTime parseLocalDateTime(String startTime) {
+
+        try {
+            return parseDateTime(startTime).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        } catch (Exception e) {
             throw new ServiceException(ServiceCodeEnum.DATE_PARSE_ERROR,ServiceCodeEnum.DATE_PARSE_ERROR);
         }
     }

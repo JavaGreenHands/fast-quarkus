@@ -11,7 +11,7 @@ import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty;
  * @since 1.0
  */
 @Entity
-@Table(name = "business_config")
+@Table(name = "fq_business_config")
 @Schema(name = "业务配置类")
 public class BusinessConfig extends BaseEntity {
 

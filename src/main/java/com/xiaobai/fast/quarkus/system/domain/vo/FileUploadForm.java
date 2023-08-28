@@ -1,4 +1,4 @@
-package com.xiaobai.fast.quarkus.controller;
+package com.xiaobai.fast.quarkus.system.domain.vo;
 
 import jakarta.ws.rs.FormParam;
 import org.jboss.resteasy.annotations.providers.multipart.PartType;
@@ -16,6 +16,7 @@ public class FileUploadForm {
     @PartType("application/octet-stream")
     private InputStream file;
 
+    @FormParam("fileName")
     private String fileName;
 
     public InputStream getFile() {
