@@ -1,4 +1,4 @@
-package com.xiaobai.fast.quarkus.demo.rest;
+package com.xiaobai.fast.quarkus.restclient;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.core.MultivaluedHashMap;

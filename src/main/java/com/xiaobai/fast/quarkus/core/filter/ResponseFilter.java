@@ -30,13 +30,13 @@ public class ResponseFilter implements ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
         log.info("""
-                        REQ:[
+                 \n request:[
                          headers: {};
                          Method: {};
                          mediaType: {};
                          uri:{};
                         ]
-                        RESP:[
+                        response:[
                         allowedMethods: {};
                         language: {};
                         headers: {};

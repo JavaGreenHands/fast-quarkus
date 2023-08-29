@@ -2,6 +2,8 @@ package com.xiaobai.fast.quarkus.system.domain;
 
 import com.xiaobai.fast.quarkus.core.base.BaseEntity;
 import com.xiaobai.fast.quarkus.core.validator.ValidationGroups;
+import io.quarkus.cache.CacheKey;
+import io.quarkus.cache.runtime.CacheKeyParameterPositions;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +21,7 @@ import java.util.List;
 @Entity
 @Table(name = "fq_dict_type")
 @Schema(name = "字典类型表")
+@CacheKeyParameterPositions(0)
 public class DictType extends BaseEntity {
 
     @Id

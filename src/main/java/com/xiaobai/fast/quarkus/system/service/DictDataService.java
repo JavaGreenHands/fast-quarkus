@@ -1,5 +1,6 @@
 package com.xiaobai.fast.quarkus.system.service;
 
+import com.xiaobai.fast.quarkus.config.Constants;
 import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
 import com.xiaobai.fast.quarkus.core.exception.ServiceException;
 import com.xiaobai.fast.quarkus.core.util.ExceptionUtils;
@@ -7,6 +8,8 @@ import com.xiaobai.fast.quarkus.system.domain.DictData;
 import com.xiaobai.fast.quarkus.system.domain.DictType;
 import com.xiaobai.fast.quarkus.system.domain.vo.DictDataQueryVo;
 import com.xiaobai.fast.quarkus.system.repository.DictDataRepository;
+import io.quarkus.cache.CacheInvalidate;
+import io.quarkus.cache.CacheInvalidateAll;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
 import io.quarkus.runtime.util.StringUtil;

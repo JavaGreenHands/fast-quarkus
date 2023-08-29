@@ -1,6 +1,5 @@
 package com.xiaobai.fast.quarkus.system.service;
 
-import com.xiaobai.fast.quarkus.config.Constants;
 import com.xiaobai.fast.quarkus.config.ienum.ServiceCodeEnum;
 import com.xiaobai.fast.quarkus.core.exception.ServiceException;
 import com.xiaobai.fast.quarkus.core.util.ExceptionUtils;
@@ -10,7 +9,6 @@ import com.xiaobai.fast.quarkus.system.domain.vo.DictTypeQueryVo;
 import com.xiaobai.fast.quarkus.system.repository.DictDataRepository;
 import com.xiaobai.fast.quarkus.system.repository.DictTypeRepository;
 import com.xiaobai.fast.quarkus.utils.CollectionUtils;
-import io.quarkus.cache.CacheResult;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
 import io.quarkus.runtime.util.StringUtil;
@@ -141,7 +139,6 @@ public class DictTypeService {
      * @param dictType  dictType
      * @return dictType
      */
-    @CacheResult(cacheName = Constants.CacheKey.DICT_DATA_CACHE_NAME,lockTimeout = 3000)
     public List<DictData> getDictDataListByType(String dictType) {
         DictType dictTypeInfo = dictTypeRepository.find("FROM DictType where isDel = 0 AND dictType = ?1", dictType).singleResultOptional().orElseThrow(ExceptionUtils::getDataNotFoundException);
         if(dictTypeInfo == null || CollectionUtils.isEmpty(dictTypeInfo.getDictDataList())){

@@ -117,11 +117,16 @@
       <artifactId>quarkus-hibernate-orm-panache</artifactId>
     </dependency>
     <!-- 应用级别的缓存 默认使用 caffeine-->
+<!--    <dependency>-->
+<!--      <groupId>io.quarkus</groupId>-->
+<!--      <artifactId>quarkus-cache</artifactId>-->
+<!--    </dependency>-->
+<!--     quarkus 使用redis 作为cache 容器-->
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-cache</artifactId>
+      <artifactId>quarkus-redis-cache</artifactId>
     </dependency>
-    <!-- redis 客户端-->
+<!--     redis 客户端-->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-redis-client</artifactId>
@@ -130,6 +135,18 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-health</artifactId>
+    </dependency>
+
+    <!-- webSocket 配置 -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-websockets</artifactId>
+    </dependency>
+
+    <!-- 熔断限流-->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
     </dependency>
 
   </dependencies>
