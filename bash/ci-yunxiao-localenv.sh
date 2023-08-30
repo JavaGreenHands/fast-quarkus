@@ -34,9 +34,8 @@ fi
 # 输出提示信息
 echo "GraalVM and Apache Maven are ready!"
 
-
 cd /root/workspace/fast-quarkus_DbBc
-export JAVA_HOME=/root/workspace/fast-quarkus_DbBc/graalvm-jdk-20.0.2+9.1/
+export JAVA_HOME=/root/opt/graalvm
 export PATH=$PATH:$JAVA_HOME/bin
 /root/opt/apache-maven-3.8.6/bin/mvn  -v
 /root/opt/apache-maven-3.8.6/bin/mvn -s /root/.m2/settings.xml clean package -Pnative
